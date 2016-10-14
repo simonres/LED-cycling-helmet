@@ -52,14 +52,14 @@ void loop() {
    activate = true; 
   }
   
-  if (butState == HIGH && counter > 0 ){
+  if ((butState == HIGH) && (counter > 0) ){
    activate = false; 
    counter=0;
   }
   
 
   
-  if (butState == LOW && activate) {
+  if ( (butState == LOW) && activate) {
           digitalWrite(ledpin2, HIGH);   // turn the LED on
           //delay(200);
          counter++; 
