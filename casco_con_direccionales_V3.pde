@@ -23,7 +23,7 @@ void setup() {
  
  
 void loop() {
-  
+  delay(200);
   digitalWrite(ledpin2, LOW);
   delay(200);
   // read the state of the pushbutton value:
@@ -52,7 +52,7 @@ void loop() {
    activate = true; 
   }
   
-  if (butState == HIGH && counter > 5 ){
+  if (butState == HIGH && counter > 0 ){
    activate = false; 
    counter=0;
   }
@@ -61,7 +61,7 @@ void loop() {
   
   if (butState == LOW && activate) {
           digitalWrite(ledpin2, HIGH);   // turn the LED on
-          delay(200);
+          //delay(200);
          counter++; 
           // wait for a second
   //        digitalWrite(ledpin2, LOW);   // turn the LED off
