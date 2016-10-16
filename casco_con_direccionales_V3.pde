@@ -28,14 +28,10 @@ void loop() {
     if (fadingState == false) {
       // turn on the LED
       for (int j =1; j<=10; j+=1){
-        for (int i = 0; i <= 255; i += 10) {
-          analogWrite(ledPin, i);
-          delay(fadingDelay);
-        }
-        for (int i = 255; i >= 0; i -= 10) {
-          analogWrite(ledPin, i);
-          delay(fadingDelay);
-        }
+        digitalWrite(ledPin, HIGH);   // turn the LED on
+        delay(200);
+        digitalWrite(ledPin, LOW);   // turn the LED off
+        delay(200);
       }
       for (int i = 0; i <= 255; i += 5) {
         analogWrite(ledPin, i);
@@ -57,14 +53,10 @@ void loop() {
     if (fadingState == false) {
       // turn on the LED
       for (int j =1; j<=10; j+=1){
-        for (int i = 0; i <= 255; i += 10) {
-          analogWrite(ledpin2, i);
-          delay(fadingDelay);
-        }
-        for (int i = 255; i >= 0; i -= 10) {
-          analogWrite(ledpin2, i);
-          delay(fadingDelay);
-        }
+        digitalWrite(ledpin2, HIGH);   // turn the LED on
+        delay(200);
+        digitalWrite(ledpin2, LOW);   // turn the LED off
+        delay(200);
       }
 
       for (int i = 0; i <= 255; i += 5) {
