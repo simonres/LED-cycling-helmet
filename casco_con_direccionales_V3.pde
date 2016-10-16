@@ -9,7 +9,7 @@ int counter = 0;
 int butState = 0;
 int buttonState = 0; // variable for reading the pushbutton status
 boolean fadingState = false; // determines whether the LED needs to be turned on or off
-boolean activate = false;
+boolean activateL = false;
 
 void setup() {
   // initialize the LED pin as an output:
@@ -21,55 +21,56 @@ void setup() {
 }
  
  
+
+// Variables will change :
+int ledState = LOW;             // ledState used to set the LED
+
+// Generally, you should use "unsigned long" for variables that hold time
+// The value will quickly become too large for an int to store
+unsigned long previousMillis = 0;        // will store last time LED was updated
+unsigned long previousbutton = 0;
+unsigned long currentbutton = 0;
+
+// constants won't change :
+const long interval = 300;           // interval at which to blink (milliseconds)
+
  
 void loop() {
-  delay(200);
-  digitalWrite(ledpin2, LOW);
-  delay(200);
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
   butState = digitalRead(butpin);
-  // check whether the button was pressed
-  if (buttonState == HIGH) {
-    // check the current LED status (on/off)
-    if (fadingState == false) {
-      // turn on the LED
-      for (int i = 0; i <= 255; i += 5) {
-        analogWrite(ledPin, i);
-        delay(fadingDelay);
-      }
-    } else {
-      // turn off the LED
-      for (int i = 255; i >= 0; i -= 5) {
-        analogWrite(ledPin, i);
-        delay(fadingDelay);
-      }      
-    }
-    fadingState = !fadingState;  // save the current LED state (on/off)
-  }
-
   if (butState == HIGH ){
-   activate = true; 
+   activateL = true;  
   }
-  
-  if ((butState == HIGH) && (counter > 0) ){
-   activate = false; 
-   counter=0;
+  if (buttonState == HIGH ){
+   activateL = false;  
   }
   
 
+  if (activateL == false){
+    digitalWrite(ledpin2, LOW);
+  }
   
-  if ( (butState == LOW) && activate) {
-          digitalWrite(ledpin2, HIGH);   // turn the LED on
-          //delay(200);
-         counter++; 
-          // wait for a second
-  //        digitalWrite(ledpin2, LOW);   // turn the LED off
-  //        delay(200);              // wait for a second
-    } //else {
-      // turn off the LED
-            
-    //}
-    //fadingState = !fadingState;  // save the current LED state (on/off)
- // }
+  
+  // here is where you'd put code that needs to be running all the time.
+
+  // check to see if it's time to blink the LED; that is, if the
+  // difference between the current time and last time you blinked
+  // the LED is bigger than the interval at which you want to
+  // blink the LED.
+  unsigned long currentMillis = millis();
+
+  if ( currentMillis - previousMillis >= interval  && activateL ) {
+    // save the last time you blinked the LED
+    previousMillis = currentMillis;
+    // if the LED is off turn it on and vice-versa:
+    if ( ledState == LOW  ) {
+      ledState = HIGH;
+    } else {
+      ledState = LOW;
+    }
+
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledpin2, ledState);
+  }
 }
